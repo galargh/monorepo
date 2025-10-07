@@ -27,6 +27,8 @@ MANIFEST
 htmlcov/
 *.cover
 *.log
+coverage.xml
+junit.xml
 
 # Virtual environments
 .venv/
