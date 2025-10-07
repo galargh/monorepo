@@ -11,7 +11,7 @@ test: ## Run all tests
 	uv run pytest
 
 test-cov: ## Run tests with coverage
-	uv run pytest --cov=packages --cov=services --cov-report=html --cov-report=term
+	uv run pytest --cov=packages --cov=services --cov-report=xml --cov-report=html --cov-report=term
 
 lint: ## Run linter
 	uv run ruff check .

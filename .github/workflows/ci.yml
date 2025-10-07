@@ -18,13 +18,13 @@ jobs:
         uses: cachix/install-nix-action@v31
 
       - name: Install dependencies
-        run: nix develop --command uv sync
+        run: nix develop --command make install
 
       - name: Run Ruff linter
-        run: nix develop --command uv run ruff check .
+        run: nix develop --command make lint
 
       - name: Check code formatting
-        run: nix develop --command uv run ruff format --check .
+        run: nix develop --command make format-check
 
   type-check:
     name: Type Check
@@ -37,14 +37,17 @@ jobs:
         uses: cachix/install-nix-action@v31
 
       - name: Install dependencies
-        run: nix develop --command uv sync
+        run: nix develop --command make install
 
       - name: Run mypy
-        run: nix develop --command uv run mypy packages/ services/
+        run: nix develop --command make type-check
 
   test:
     name: Test
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -53,15 +56,16 @@ jobs:
         uses: cachix/install-nix-action@v31
 
       - name: Install dependencies
-        run: nix develop --command uv sync
+        run: nix develop --command make install
 
       - name: Run tests
-        run: nix develop --command uv run pytest --cov=packages --cov=services --cov-report=xml --cov-report=term
+        run: nix develop --command make test-cov
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
-          file: ./coverage.xml
+          use_oidc: true
+          files: ./coverage.xml
           fail_ci_if_error: false
         continue-on-error: true
 
