@@ -1,5 +1,7 @@
 # Python Monorepo
 
+[![CI](https://github.com/galargh/monorepo/actions/workflows/ci.yml/badge.svg)](https://github.com/galargh/monorepo/actions/workflows/ci.yml)
+
 A modern Python monorepo setup using UV workspace and Nix for reproducible development environments.
 
 ## 🏗️ Structure
